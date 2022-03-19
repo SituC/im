@@ -1,0 +1,37 @@
+.create-room {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  h4 {
+    font-size: 12px;
+    margin-top: 10px;
+    color: rgba(0, 0, 0, 0.45);
+  }
+  .tip {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  input {
+    background: rgb(229,229,229);
+    border-radius: 5px;
+    font-size: 14px;
+    display: block;
+    @media screen and (min-width: 1000px) {
+      padding: 5px;
+    }
+    @media screen and (max-width: 1000px) {
+      padding: 10px;
+    }
+  }
+  input:nth-of-type(2) {
+    margin-top: 10px;
+  }
+  .handle-box {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    .btn {
+      margin-left: 5px;
+    }
+  }
+}

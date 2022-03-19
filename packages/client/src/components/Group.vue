@@ -15,7 +15,7 @@
     </div>
     <div class="chat-group_list">
       <template v-for="item in 15" :key="item">
-        <GroupItem></GroupItem>
+        <GroupItem @toDetail="toDetail"></GroupItem>
       </template>
     </div>
   </div>
@@ -40,14 +40,18 @@ import GroupItem from './GroupItem.vue';
 import Modal from './Modal.vue'
 export default defineComponent({
   components: { GroupItem, Modal },
-  setup() {
+  setup(props, ctx) {
     const modalVisible = ref(false)
     const openModal = () => {
 
     }
+    const toDetail = () => {
+      ctx.emit('toDetail')
+    }
     return {
       modalVisible,
-      openModal
+      openModal,
+      toDetail
     }
   }
 })
@@ -80,7 +84,8 @@ $bcg-color: rgb(229,229,229);
   }
   .chat-search {
     background: #fff;
-    padding: 10px ;
+    height: 56.8px;
+    padding: 0 5px;
     @include flex;
     gap: 5px;
     .search-box {
@@ -135,26 +140,5 @@ $bcg-color: rgb(229,229,229);
 }
 </style>
 <style lang="scss">
-  .create-room {
-    background: #fff;
-    input {
-      background: rgb(229,229,229);
-      border-radius: 5px;
-      font-size: 14px;
-      @media screen and (min-width: 1000px) {
-        padding: 5px;
-      }
-      @media screen and (max-width: 1000px) {
-        padding: 10px;
-      }
-    }
-  }
-  .handle-box {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 15px;
-    .btn {
-      margin-left: 5px;
-    }
-  }
+@import '@/assets/style/_teleport.scss';
 </style>

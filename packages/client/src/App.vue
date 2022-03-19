@@ -5,11 +5,17 @@
         <Nav></Nav>
       </div>
       <div>
-        <Group></Group>
+        <Group @toDetail="toDetail"></Group>
       </div>
-      <div class="chat-message_wrap">
+      <div class="chat-message_wrap" :class="{'chat-message_block': detailShow}" :style="{
+        display: detailShow
+          ?
+            'block !important'
+          : 
+          isMobile() ? 'none' : 'block'
+        }">
         <div class="chat-box_message">
-          <Message></Message>
+          <Message @back="back"></Message>
           <Entry></Entry>
         </div>
         <!-- <img src="@/assets/images/icons/wechat-gray.png" alt=""> -->
@@ -28,10 +34,22 @@
   import Message from './components/Message.vue';
   import Entry from './components/Entry.vue';
   import Tabbar from './components/Tabbar.vue';
+  import { isMobile } from './utils/index'
   export default defineComponent({
     components: { Tabbar, Nav, Group, Message, Entry },
     setup() {
+      const detailShow = ref(false)
+      const toDetail = () => {
+        detailShow.value = !detailShow.value
+      }
+      const back = () => {
+        detailShow.value = !detailShow.value
+      }
       return {
+        detailShow,
+        isMobile,
+        toDetail,
+        back,
       }
     }
   })
@@ -54,6 +72,13 @@
       @include flex-direction;
     }
   }
+  .chat-message_block {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+  }
+  
   @media screen and (min-width: $width-pc) {
     z-index: 999;
     max-width: 1000px;
@@ -103,14 +128,14 @@
   z-index: -1;
 }
 
-// pc
+// h5
 @media screen and (max-width: $width-pc) {
   .chat-background {
     display: none !important;
   }
 }
 
-// h5
+// pc
 @media screen and (min-width: $width-pc) {
   .tabbar-box {
     display: none !important;

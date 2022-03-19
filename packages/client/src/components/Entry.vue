@@ -3,7 +3,7 @@
 -->
 <template>
   <div class="chat-entry">
-    <textarea></textarea>
+    <textarea placeholder="请输入内容"></textarea>
     <div class="send-box">
       <div class="send">发送</div>
     </div>
@@ -32,8 +32,7 @@ $color-content: rgb(245,245,245);
 .chat-entry {
   background: #fff;
   height: 200px;
-  padding-top: 15px;
-  padding-bottom: 10px;
+  padding-bottom: calc(10px + #{$safeHeight});
   width: 100%;
   position: relative;
   @extend %halfborder;
@@ -45,7 +44,7 @@ $color-content: rgb(245,245,245);
     box-sizing: border-box;
     outline: none;
     flex: 1;
-    padding: 0 15px;
+    padding: 15px;
     font-size: 16px;
     resize: none;
   }

@@ -5,7 +5,7 @@
   <div class="chat-nav">
     <div class="chat-nav_tool">
       <div class="tool-top">
-        <div class="tool-avatar">
+        <div class="tool-avatar" @click="loginModal">
           <Avatar></Avatar>
         </div>
         <img title="聊天室" src="@/assets/images/icons/wechat.png" alt="">
@@ -26,20 +26,53 @@
         <img title="退出登录" src="@/assets/images/icons/logout.png" alt="">
       </div>
     </div>
+    <Modal
+      title="登录"
+      :visible="modalVisible"
+      @hide="modalVisible = false"
+    >
+      <div class="create-room" v-if="loginStep === 1">
+        <input type="text" placeholder="请输入账号">
+        <input type="text" placeholder="请输入密码">
+        <h4>tip: 未注册账号直接登录自动注册</h4>
+        <div class="handle-box">
+          <div class="btn normal" @click.stop="modalVisible = false">取消</div>
+          <div class="btn primary" @click.stop="loginStep = 2">确定</div>
+        </div>
+      </div>
+      <div class="create-room" v-else-if="loginStep === 2">
+        <h4 class="tip">您是新用户，请先输入昵称</h4>
+        <input type="text" placeholder="请输入昵称">
+        <div class="handle-box">
+          <div class="btn normal" @click.stop="loginStep = 1">返回</div>
+          <div class="btn primary">确定</div>
+        </div>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import Avatar from './Avatar.vue';
+import Modal from './Modal.vue'
+type LoginStep = 1 | 2 // 1 - 注册 2 - 昵称填写
 export default defineComponent({
   components: {
-    Avatar,
+    Avatar, Modal
   },
   setup() {
     const menuShow = ref(false)
+    const modalVisible = ref(false)
+    const loginStep = ref(1)
+    const loginModal = () => {
+      modalVisible.value = !modalVisible.value
+    }
     return {
-      menuShow
+      menuShow,
+      modalVisible,
+      loginStep,
+      loginModal
     }
   }
 })
@@ -135,4 +168,8 @@ export default defineComponent({
 .fade-enter {
   opacity: 1;
 }
-</style>>
+</style>
+<style lang="scss">
+@import '@/assets/style/_teleport.scss';
+</style>
+

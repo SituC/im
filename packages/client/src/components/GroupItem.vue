@@ -16,10 +16,13 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
+import { isMobile } from '../utils/index'
 export default defineComponent({
-  setup() {
+  setup(props, ctx) {
     const toDetail = () => {
-
+      if (isMobile()) {
+        ctx.emit('toDetail')
+      }
     }
     return {
       toDetail

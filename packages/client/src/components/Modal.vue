@@ -58,7 +58,6 @@ export default defineComponent({
   width: 100%;
   height: 100vh;
   z-index: 999;
-
   .modal-content {
     padding: 20px;
     border-radius: 5px;
