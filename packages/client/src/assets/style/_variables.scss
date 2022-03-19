@@ -1,0 +1,12 @@
+// layout
+$width-pc: 768px; // 未兼容平板，只兼容到手机端，PC最大尺寸768px
+
+// colors
+$color-text: #444652;
+$color-text-light: rgba(0, 0, 0, 0.45);
+$color-main: rgb(18,150,17);
+// border
+$border: 1px solid #d6d6d6;
+
+$safeHeight: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */ 
+$safeHeight: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */

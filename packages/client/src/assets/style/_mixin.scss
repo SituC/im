@@ -1,0 +1,48 @@
+@mixin flex($justifyContent: center, $alignItem: center, ) {
+  display: flex;
+  justify-content: $justifyContent;
+  align-items: $alignItem;
+}
+
+@mixin flex-direction($direction: column) {
+  flex-direction: $direction;
+}
+
+@mixin absouteCenter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+@mixin pseudo($url, $width: 16px, $height: 16px) {
+  content: '';
+  width: $width;
+  height: $height;
+  background: url(#{$url});
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+@mixin halfBorder {
+  // border: 1px solid ;
+  content: '';
+  width: 100%;
+  height: 1px;
+  background: #d6d6d6;
+  transform: scaleY(0.7);
+}
+
+@mixin ell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin ell2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
