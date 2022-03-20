@@ -9,7 +9,7 @@
 - 获取用户信息
 - 创建群聊列表项
 - 我的群聊列表
-
+- 刷新页面保持登录态
 ## start
 ```bash
 pnpm install --filter client
