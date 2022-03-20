@@ -9,10 +9,11 @@ npm install pnpm -g
 
 ### client 项目使用vue3
 [vue3 官方文档](https://v3.cn.vuejs.org/guide/installation.html)
-
+[client 现有功能说明](./packages/client/README.md)
 ### server 项目使用nestjs，一个node框架
 [nestjs 官方文档](https://docs.nestjs.cn/)
 [nestjs websocket文档](https://docs.nestjs.cn/8/websockets)
+[server 现有功能说明](./packages/server/README.md)
 
 # 项目启动
 ```bash
