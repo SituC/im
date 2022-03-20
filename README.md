@@ -1,6 +1,8 @@
 # im
 nestjs + vue3实现im
 
+项目现有功能用时：`20小时`
+
 >使用pnpm包管理工具，如果没有安装请使用以下命令安装
 [pnpm 官方文档](https://pnpm.io/zh/motivation)
 ```bash
