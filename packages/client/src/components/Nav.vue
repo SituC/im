@@ -6,7 +6,8 @@
     <div class="chat-nav_tool">
       <div class="tool-top">
         <div class="tool-avatar" @click="loginModal">
-          <Avatar></Avatar>
+          <Avatar v-if="user.id" :user="user"></Avatar>
+          <img v-else src="@/assets/images/icons/login.png" alt="">
         </div>
         <img title="聊天室" src="@/assets/images/icons/wechat.png" alt="">
       </div>
@@ -23,7 +24,7 @@
             </div>
           </transition>
         </div> -->
-        <img title="退出登录" src="@/assets/images/icons/logout.png" alt="">
+        <img title="退出登录" v-if="user.id" @click.stop="loginout" src="@/assets/images/icons/logout.png" alt="">
       </div>
     </div>
     <Modal
@@ -31,21 +32,13 @@
       :visible="modalVisible"
       @hide="modalVisible = false"
     >
-      <div class="create-room" v-if="loginStep === 1">
-        <input type="text" placeholder="请输入账号">
-        <input type="text" placeholder="请输入密码">
+      <div class="create-room">
+        <input type="text" v-model="loginForm.username" placeholder="请输入昵称">
+        <input type="text" v-model="loginForm.password" placeholder="请输入密码">
         <h4>tip: 未注册账号直接登录自动注册</h4>
         <div class="handle-box">
           <div class="btn normal" @click.stop="modalVisible = false">取消</div>
-          <div class="btn primary" @click.stop="loginStep = 2">确定</div>
-        </div>
-      </div>
-      <div class="create-room" v-else-if="loginStep === 2">
-        <h4 class="tip">您是新用户，请先输入昵称</h4>
-        <input type="text" placeholder="请输入昵称">
-        <div class="handle-box">
-          <div class="btn normal" @click.stop="loginStep = 1">返回</div>
-          <div class="btn primary">确定</div>
+          <div class="btn primary" @click.stop="login">确定</div>
         </div>
       </div>
     </Modal>
@@ -53,26 +46,85 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent, reactive, ref } from 'vue';
+import { useStore } from 'vuex'
 import Avatar from './Avatar.vue';
+import config from '../config/index'
 import Modal from './Modal.vue'
-type LoginStep = 1 | 2 // 1 - 注册 2 - 昵称填写
+import { userinfoApi, loginApi, loginoutApi } from '../api/index'
+import { ReigsterParams } from '../api/type'
+import { awaitTo } from '../utils/index'
 export default defineComponent({
   components: {
     Avatar, Modal
   },
   setup() {
+    const store = useStore()
+    const user = computed(() => {
+      return store.state.user
+    })
+    const loginForm: ReigsterParams = reactive({
+      username: '',
+      password: ''
+    })
     const menuShow = ref(false)
     const modalVisible = ref(false)
-    const loginStep = ref(1)
+
+    // 打开登录弹窗
     const loginModal = () => {
+      if (user.value.id) return
       modalVisible.value = !modalVisible.value
     }
+
+    // 参数校验
+    const validate = (params: ReigsterParams) => {
+      if (!params.username || !params.password) {
+        alert('请完善表单后再提交')
+        return false
+      } else {
+        return true
+      }
+    }
+
+    // 登录
+    const login = async () => {
+      if (!validate(loginForm)) return
+      // 登录接口仅返回的token
+      const [error, result] = await awaitTo(loginApi(loginForm))
+      alert(result.data?.msg)
+      // 设置token
+      localStorage.setItem(config.tokenName, result.data.token)
+      fetchUser()
+      fetchGroupList()
+      loginModal()
+    }
+
+    // 退出登录
+    const loginout = async () => {
+      const [error, result] = await awaitTo(loginoutApi())
+      store.commit('clearUser')
+      alert('已退出登录')
+    }
+
+    // 获取用户信息
+    const fetchUser = async () => {
+      const [userError, userCallback] = await awaitTo(userinfoApi())
+      store.commit('setUser', userCallback.data)
+    }
+
+    // 获取群组列表
+    const fetchGroupList = async () => {
+      const [userError, userCallback] = await awaitTo(userinfoApi())
+      console.log(userCallback)
+    }
     return {
+      user,
       menuShow,
       modalVisible,
-      loginStep,
-      loginModal
+      loginForm,
+      loginModal,
+      login,
+      loginout,
     }
   }
 })
@@ -111,7 +163,10 @@ export default defineComponent({
     .tool-avatar {
       width: 55px;
       height: 55px;
+      background: #fff;
+      border-radius: 50%;
       margin-top: 20px;
+      @include flex;
     }
     >div {
       @include flex;

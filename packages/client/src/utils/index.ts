@@ -1,3 +1,7 @@
+/**
+ * @method 判断是否是移动端
+ * @returns {boolean} boolean
+ */
 export const isMobile = (): boolean => {
   if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
     return true
@@ -10,3 +14,14 @@ export const isMobile = (): boolean => {
     }
   }
 }
+
+/**
+ * @method asyncAwait捕获错误
+ * @param {promise} promise
+ */
+ export const awaitTo = (promise: any): any[] => {
+  return promise.then((data: any) => {
+    return [null, data];
+  })
+  .catch((err: any) => [err]);
+};

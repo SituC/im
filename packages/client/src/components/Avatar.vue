@@ -3,14 +3,33 @@
 -->
 <template>
   <div class="chat-avatar">
-    <div class="avatar">H</div>
+    <div class="avatar">{{ username }}</div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
-export default defineComponent({
+import { computed, ExtractPropTypes, defineComponent, PropType } from 'vue';
+import { User } from '../api/type'
 
+const propsParams = {
+  user: {
+    type: Object as PropType<User>,
+    default: () => ({
+      username: ''
+    }),
+  },
+}
+type PropsParamsType = ExtractPropTypes<typeof propsParams>;
+export default defineComponent({
+  props: propsParams,
+  setup(props: PropsParamsType) {
+    const username = computed(() => {
+      return props?.user?.username ? props?.user?.username[0]?.toUpperCase() : ''
+    })
+    return {
+      username
+    }
+  }
 })
 </script>
 

@@ -1,12 +1,13 @@
 export default {
-  /**
-   * 服务环境：开发-development; 测试-test; 生产-production
-   * 请在.env.*文件中修改环境变量配置
-   * 您也可以通过docker配置环境变量
-  */
   port: 8080,
+  wsPort: 3002, // websocket端口
+  tokenMaxAge: 60 * 60 * 24 * 7, // 单位s
   env: process.env.NODE_ENV || 'development',
-  webUrl: process.env.APP_HOST || 'http://localhost:3000', // 本服务域名
-  swagger: '/api', // swagger地址前缀
-} as const
+  webUrl: process.env.APP_HOST || 'http://localhost:8080', // 本服务域名
+  issuer: 'http://localhost/',
+  whiteUrl: [ // 前端请求白名单
+    'http://localhost:3000',
+    'http://0.0.0.0:3000'
+  ]
+}
 

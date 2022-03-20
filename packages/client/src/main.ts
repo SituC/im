@@ -1,5 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import { Request } from './utils/request'
+import VueAxios from 'vue-axios'
+import store from './store/index'
+import router from './router/index'
 import './assets/rem'
 import './assets/style/index.scss'
-createApp(App).mount('#app')
+import './router/beforeEach'
+createApp(App).use(router).use(store).use(VueAxios, Request.init()).mount('#app')

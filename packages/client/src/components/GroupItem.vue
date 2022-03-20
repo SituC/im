@@ -6,7 +6,7 @@
     <img src="@/assets/images/avatar-group.jpeg" alt="">
     <div class="box">
       <div class="top">
-        <div class="name">远大中央公园13栋远大中央公园13栋</div>
+        <div class="name">{{ item.groupName }}</div>
         <div class="date">昨天</div>
       </div>
       <div class="desc">路人：我每天都过来楼下楼下楼下我每天都过来楼下楼下楼下路人：我每天都过来楼下楼下楼下我每天都过来楼下楼下楼下</div>
@@ -15,10 +15,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { PropType, ExtractPropTypes, defineComponent, ref } from 'vue';
 import { isMobile } from '../utils/index'
+import { GroupResponse } from '../api/type'
+const propsParams = {
+  item: {
+    type: Object as PropType<GroupResponse>,
+    default: () => ({}),
+  },
+
+}
+type PropsParamsType = ExtractPropTypes<typeof propsParams>;
 export default defineComponent({
-  setup(props, ctx) {
+  emits: ['toDetail'],
+  props: propsParams,
+  setup(props: PropsParamsType, ctx) {
     const toDetail = () => {
       if (isMobile()) {
         ctx.emit('toDetail')

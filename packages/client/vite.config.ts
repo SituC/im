@@ -6,10 +6,17 @@ const { resolve } = require('path')
 export default defineConfig({
   plugins: [vue(), ],
   server: {
-    host: '0.0.0.0'
+    host: '0.0.0.0',
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080', //这里后台的地址模拟的;应该填写你们真实的后台接口
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   },
   resolve: {
     extensions: ['.ts', '.png', '.vue', '.json', ".scss"],
     alias: [{ find: '@', replacement: resolve(__dirname, 'src') }],
-  }
+  },
 })

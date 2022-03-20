@@ -23,6 +23,7 @@ import MessageItem from './MessageItem.vue';
 import TitleBar from './TitleBar.vue';
 export default defineComponent({
   components: { MessageItem, TitleBar },
+  emits: ['back'],
   setup(props, ctx) {
     const back = () => {
       console.log('back')

@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "v-contextmenu": "^3.0.0",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vue-axios": "^3.4.1",
+    "vue-router": "^4.0.13",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.0",
