@@ -9,7 +9,8 @@
 - 获取用户信息
 - 创建群聊列表项
 - 我的群聊列表
-- 刷新页面保持登录态
+- [刷新页面保持登录态](./src/router/beforeEach.ts)
+- [http请求封装](./src/utils/request.ts)
 ## start
 ```bash
 pnpm install --filter client

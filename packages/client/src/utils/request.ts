@@ -1,14 +1,10 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios' //导入axios 和钩子
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ApiErrorCode } from './errorCode'
 import globalConfig from '../config/index'
-// import { ElLoading } from 'element-plus' //导入ElLoading
-// import { ILoadingInstance } from 'element-plus/lib/components/loading/src/loading.type' //导入ElLoading钩子
  
-// 初始化loading
 const successCode = [200, 201]
 export class Request {
   public static axiosInstance: AxiosInstance
-  // public static loading?: ILoadingInstance //loading实例 挂载到公共的静态属性上 方便获取
  
   public static init() {
     // 创建axios实例
@@ -30,12 +26,11 @@ export class Request {
      * 请求拦截器
      * 每次请求前，如果存在token则在请求头中携带token
      */
- 
     this.axiosInstance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
-        const token = localStorage.getItem(globalConfig.tokenName) //保存token到localStorage中
+        const token = localStorage.getItem(globalConfig.tokenName) // 保存token到localStorage中
         if (token) {
-          ;(config as any).headers.Authorization = 'Bearer ' + token //携带请求头
+          ;(config as any).headers.Authorization = 'Bearer ' + token // 携带请求头
         }
         return config
       },
@@ -48,8 +43,6 @@ export class Request {
     this.axiosInstance.interceptors.response.use(
       // 请求成功
       (response: AxiosResponse) => {
-        // this.loading?.close() //将loading移除
- 
         if (successCode.includes(response.status)) {
           // 拦截服务端返回错误
           if (response.data.code === 0) {
