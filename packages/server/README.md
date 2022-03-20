@@ -8,6 +8,7 @@
 - 获取用户信息
 - 创建群聊列表项
 - 我的群聊列表
+- 数据库设计
 
 ## 模块说明
 > 基于src目录下的文件
@@ -26,7 +27,10 @@
 - [ws websocket适配器](./src/ws/ws.adapter.ts)
 - [app.modules.ts 全局依赖注入模块](./src/app.module.ts)
 - [main.ts 全局入口模块](./src/main.ts)
-## start
+
+> 使用server服务前请确保电脑上安装了mysql，mysql配置请请查看 `.env.development` 文件
+
+## server项目start
 ```bash
 pnpm install --filter server
 
