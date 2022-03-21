@@ -28,7 +28,7 @@
 - [app.modules.ts 全局依赖注入模块](./src/app.module.ts)
 - [main.ts 全局入口模块](./src/main.ts)
 
-> 使用server服务前请确保电脑上安装了mysql，mysql配置请请查看 `.env.development` 文件
+> 使用server服务前请确保电脑上安装了mysql，mysql配置请请查看 `.env.development` 文件，请在mysql中创建名字为`im`的数据库，`urf-8格式`
 
 ## server项目start
 ```bash
